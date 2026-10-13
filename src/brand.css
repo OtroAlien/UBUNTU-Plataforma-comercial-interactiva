@@ -55,6 +55,10 @@ html, body { background: #090909; color: #f5f2eb; }
 .search-hint button { color: #f5f2eb; text-decoration-color: #d2a341; }
 
 .statement-band { background: #c89b3c; color: #11100d; }
+.statement-band { justify-content: flex-start; }
+.statement-track { display: flex; align-items: center; gap: 22px; width: max-content; animation: statement-drift 30s linear infinite; }
+.statement-track > span { flex: none; }
+@keyframes statement-drift { to { transform: translateX(-50%); } }
 .section-kicker, .hero-intro { color: #dfbd6c; }
 .intro-line { background: #d2a341; }
 .category-tile { border-color: #3d382e; background: #141311; color: #f5f2eb; }
@@ -77,8 +81,10 @@ html, body { background: #090909; color: #f5f2eb; }
 .community-copy h2 em { color: #e1b84f; }
 .community-copy p { color: #c0bbb0; }
 .coming-soon { border-color: #725a2b; color: #e6c36e; }
-.community-watermark { position: absolute; top: 50%; right: 3%; z-index: 0; width: min(38vw, 470px); transform: translateY(-50%); opacity: .14; pointer-events: none; }
+.community-watermark { position: absolute; top: 50%; right: 3%; z-index: 0; width: min(38vw, 470px); translate: 0 -50%; opacity: .14; pointer-events: none; }
 .community-watermark img { width: 100%; height: auto; object-fit: contain; }
+.category-grid > div { min-width: 0; }
+.category-grid .category-tile { width: 100%; height: 100%; }
 
 .magazine-cover { border: 1px solid #9c742c; background: #050505; box-shadow: 15px 17px 0 #302719; }
 .magazine-cover > strong span { color: #d2a341; }
@@ -115,4 +121,5 @@ html, body { background: #090909; color: #f5f2eb; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header, .site-header.scrolled { transition: none; }
+  .statement-track { animation: none; }
 }

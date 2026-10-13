@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
-import { motion, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react'
+import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import {
   ArrowDownRight,
   ArrowRight,
@@ -43,6 +43,22 @@ function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
 }
 
+function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  const reducedMotion = useReducedMotion()
+
+  return (
+    <motion.div
+      className={className}
+      initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.62, delay, ease: [0.2, 0.7, 0.1, 1] }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -83,8 +99,10 @@ function Header() {
 }
 
 function BusinessCard({ business, onOpen }: { business: Business; onOpen: (business: Business) => void }) {
+  const reducedMotion = useReducedMotion()
+
   return (
-    <article className="business-card">
+    <motion.article className="business-card" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: 12, transition: { duration: 0.18 } }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.62, ease: [0.2, 0.7, 0.1, 1] }}>
       <button className="business-card-link" type="button" onClick={() => onOpen(business)} aria-label={`Conocer ${business.name}`}>
         <div className="business-image-wrap">
           <img className="business-image" src={business.image} alt={business.imageAlt} loading="lazy" width="600" height="450" />
@@ -94,7 +112,7 @@ function BusinessCard({ business, onOpen }: { business: Business; onOpen: (busin
         <h3>{business.name}</h3>
         <p>{business.description}</p>
       </button>
-    </article>
+    </motion.article>
   )
 }
 
@@ -140,6 +158,13 @@ function BusinessPreview({ business, onClose }: { business: Business; onClose: (
 
 function App() {
   const reducedMotion = useReducedMotion()
+  const heroVisualRef = useRef<HTMLDivElement>(null)
+  const communityRef = useRef<HTMLElement>(null)
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroVisualRef, offset: ['start end', 'end start'] })
+  const { scrollYProgress: communityProgress } = useScroll({ target: communityRef, offset: ['start end', 'end start'] })
+  const heroImageY = useTransform(heroProgress, [0, 1], [22, -22])
+  const eagleY = useTransform(communityProgress, [0, 1], [16, -16])
+  const eagleRotate = useTransform(communityProgress, [0, 1], [-8, -4])
   const [query, setQuery] = useState('')
   const [locality, setLocality] = useState<(typeof localities)[number]>('Todas las localidades')
   const [appliedQuery, setAppliedQuery] = useState('')
@@ -197,8 +222,8 @@ function App() {
               </div>
             </motion.div>
           </div>
-          <motion.div className="hero-visual" initial={reducedMotion ? false : { opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.75, delay: 0.1 }}>
-            <img src="/images/barrio.webp" alt="Comercios de barrio en una calle arbolada" width="1536" height="1024" fetchPriority="high" />
+          <motion.div ref={heroVisualRef} className="hero-visual" initial={reducedMotion ? false : { opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.75, delay: 0.1 }}>
+            <motion.img style={reducedMotion ? undefined : { y: heroImageY, scale: 1.08 }} src="/images/barrio.webp" alt="Comercios de barrio en una calle arbolada" width="1536" height="1024" fetchPriority="high" />
             <div className="hero-photo-label"><span>Encontrá lo tuyo</span><strong>ACÁ CERCA</strong><ArrowDownRight size={22} /></div>
           </motion.div>
         </section>
@@ -223,47 +248,47 @@ function App() {
           <p className="search-hint">Probá con <button onClick={() => { clearFilters(); setQuery('Peluquería'); setAppliedQuery('Peluquería'); scrollToSection('negocios') }}>peluquería</button>, <button onClick={() => { clearFilters(); setQuery('Fletes'); setAppliedQuery('Fletes'); scrollToSection('negocios') }}>fletes</button> o <button onClick={() => { clearFilters(); setQuery('Sublimación'); setAppliedQuery('Sublimación'); scrollToSection('negocios') }}>sublimación</button>.</p>
         </section>
 
-        <div className="statement-band" aria-hidden="true"><span>COMPRÁ CERCA</span><span className="statement-spark">✳</span><span>CRECEMOS JUNTOS</span><span className="statement-spark">✳</span><span>DESCUBRÍ TU BARRIO</span></div>
+        <div className="statement-band" aria-hidden="true"><div className="statement-track"><span>COMPRÁ CERCA</span><span className="statement-spark">✳</span><span>CRECEMOS JUNTOS</span><span className="statement-spark">✳</span><span>DESCUBRÍ TU BARRIO</span><span className="statement-spark">✳</span><span>COMPRÁ CERCA</span><span className="statement-spark">✳</span><span>CRECEMOS JUNTOS</span><span className="statement-spark">✳</span><span>DESCUBRÍ TU BARRIO</span><span className="statement-spark">✳</span></div></div>
 
         <section className="categories-section shell section-spacing" id="categorias" aria-labelledby="categories-title">
           <div className="section-heading categories-heading">
-            <h2 id="categories-title">Cada búsqueda<br />tiene un lugar<span className="yellow-period">.</span></h2>
-            <p>Desde ese café al que siempre volvés hasta el servicio que justo necesitás. Empezá por acá.</p>
+            <Reveal><h2 id="categories-title">Cada búsqueda<br />tiene un lugar<span className="yellow-period">.</span></h2></Reveal>
+            <Reveal delay={0.12}><p>Desde ese café al que siempre volvés hasta el servicio que justo necesitás. Empezá por acá.</p></Reveal>
           </div>
           <div className="category-grid">
             {categories.map((item, index) => {
               const Icon = categoryIcons[item.icon]
-              return <button className="category-tile" key={item.label} type="button" onClick={() => selectCategory(item.label)}>
+              return <Reveal key={item.label} delay={index % 4 * 0.07}><button className="category-tile" type="button" onClick={() => selectCategory(item.label)}>
                 <span className="category-index">0{index + 1}</span><Icon size={31} strokeWidth={1.5} aria-hidden="true" /><span className="category-name">{item.label}</span><ArrowUpRight className="category-arrow" size={20} aria-hidden="true" />
-              </button>
+              </button></Reveal>
             })}
           </div>
         </section>
 
         <section className="business-section shell section-spacing" id="negocios" aria-labelledby="business-title">
           <div className="business-heading">
-            <div><p className="section-kicker">GENTE QUE HACE</p><h2 id="business-title">Historias que<br />empiezan cerca<span className="yellow-period">.</span></h2></div>
-            <p>Una primera mirada a los comercios y emprendedores que hacen vibrar Zona Sur.</p>
+            <Reveal><div><p className="section-kicker">GENTE QUE HACE</p><h2 id="business-title">Historias que<br />empiezan cerca<span className="yellow-period">.</span></h2></div></Reveal>
+            <Reveal delay={0.12}><p>Una primera mirada a los comercios y emprendedores que hacen vibrar Zona Sur.</p></Reveal>
           </div>
           <div className="filter-row" aria-label="Filtrar comercios por categoría">
             <button className={category === 'Todas' ? 'filter-chip active' : 'filter-chip'} aria-pressed={category === 'Todas'} onClick={() => selectCategory('Todas')}>Todos</button>
             {categories.map((item) => <button key={item.label} className={category === item.label ? 'filter-chip active' : 'filter-chip'} aria-pressed={category === item.label} onClick={() => selectCategory(item.label)}>{item.label}</button>)}
           </div>
           {(appliedQuery || appliedLocality !== 'Todas las localidades' || category !== 'Todas') && <div className="results-summary"><span>{filteredBusinesses.length} {filteredBusinesses.length === 1 ? 'resultado' : 'resultados'}{appliedQuery ? ` para “${appliedQuery}”` : ''}</span><button type="button" onClick={clearFilters}>Limpiar filtros <X size={15} /></button></div>}
-          {filteredBusinesses.length ? <div className="business-grid">{filteredBusinesses.map((business) => <BusinessCard key={business.id} business={business} onOpen={setSelectedBusiness} />)}</div> : <div className="empty-state"><Search size={33} /><h3>No encontramos coincidencias en esta muestra.</h3><p>Probá otra categoría o localidad. La demo muestra seis comercios ficticios.</p><Button variant="outline" onClick={clearFilters}>Ver todos los comercios</Button></div>}
+          {filteredBusinesses.length ? <div className="business-grid"><AnimatePresence initial={false}>{filteredBusinesses.map((business) => <BusinessCard key={business.id} business={business} onOpen={setSelectedBusiness} />)}</AnimatePresence></div> : <div className="empty-state"><Search size={33} /><h3>No encontramos coincidencias en esta muestra.</h3><p>Probá otra categoría o localidad. La demo muestra seis comercios ficticios.</p><Button variant="outline" onClick={clearFilters}>Ver todos los comercios</Button></div>}
           <p className="demo-disclaimer">Contenido ficticio creado para esta demo. Los comercios, imágenes y descripciones son ejemplos ilustrativos.</p>
         </section>
 
-        <section className="community-section" id="beneficios" aria-labelledby="community-title">
+        <section ref={communityRef} className="community-section" id="beneficios" aria-labelledby="community-title">
           <div className="shell community-layout">
-            <div className="community-copy"><span className="community-icon"><HeartHandshake size={33} strokeWidth={1.5} /></span><h2 id="community-title">Cuando a uno le va bien,<br /><em>crecemos todos.</em></h2><p>UBUNTU une el descubrimiento local con nuevas oportunidades para los emprendedores. Muy pronto, los beneficios de nuestra comunidad van a vivir acá.</p><span className="coming-soon">Beneficios y promociones · Próxima fase</span></div>
-            <div className="community-watermark" aria-hidden="true"><img src="/images/eagle-watermark.webp" alt="" width="1254" height="1254" /></div>
+            <div className="community-copy"><Reveal><span className="community-icon"><HeartHandshake size={33} strokeWidth={1.5} /></span><h2 id="community-title">Cuando a uno le va bien,<br /><em>crecemos todos.</em></h2><p>UBUNTU une el descubrimiento local con nuevas oportunidades para los emprendedores. Muy pronto, los beneficios de nuestra comunidad van a vivir acá.</p><span className="coming-soon">Beneficios y promociones · Próxima fase</span></Reveal></div>
+            <motion.div className="community-watermark" aria-hidden="true" style={reducedMotion ? undefined : { y: eagleY, rotate: eagleRotate }}><img src="/images/eagle-watermark.webp" alt="" width="1254" height="1254" /></motion.div>
           </div>
         </section>
 
         <section className="magazine-section shell section-spacing" id="revista" aria-labelledby="magazine-title">
-          <div className="magazine-cover" aria-label="Portada conceptual de la revista UBUNTU"><div className="cover-top"><span>REVISTA LOCAL</span><span>EDICIÓN 01</span></div><strong>UBUNTU<span>.</span></strong><div className="cover-circle">Ideas que<br />nos unen</div><div className="cover-bottom">HISTORIAS · COMERCIOS · COMUNIDAD</div></div>
-          <div className="magazine-copy"><p className="section-kicker">DEL PAPEL A TU PANTALLA</p><h2 id="magazine-title">Una revista que<br />sigue viviendo.</h2><p>La edición impresa será una puerta de entrada a los negocios, historias y experiencias digitales del barrio.</p><span className="coming-soon">Revista interactiva · Próxima fase</span></div>
+          <motion.div className="magazine-cover" aria-label="Portada conceptual de la revista UBUNTU" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.18 }} transition={{ duration: 0.68, ease: [0.2, 0.7, 0.1, 1] }}><div className="cover-top"><span>REVISTA LOCAL</span><span>EDICIÓN 01</span></div><strong>UBUNTU<span>.</span></strong><div className="cover-circle">Ideas que<br />nos unen</div><div className="cover-bottom">HISTORIAS · COMERCIOS · COMUNIDAD</div></motion.div>
+          <Reveal className="magazine-copy" delay={0.12}><p className="section-kicker">DEL PAPEL A TU PANTALLA</p><h2 id="magazine-title">Una revista que<br />sigue viviendo.</h2><p>La edición impresa será una puerta de entrada a los negocios, historias y experiencias digitales del barrio.</p><span className="coming-soon">Revista interactiva · Próxima fase</span></Reveal>
         </section>
 
         <section className="publish-section shell" id="publica" aria-labelledby="publish-title"><div><p>PARA QUIENES EMPRENDEN</p><h2 id="publish-title">Tu próximo cliente<br />puede estar a unas<br /><em>cuadras de distancia.</em></h2></div><div className="publish-side"><p>Estamos construyendo un espacio para que más personas descubran lo que hacés. La propuesta comercial y el formulario de consultas llegarán en una próxima fase.</p><span>Publicá tu negocio · Próxima fase <ArrowUpRight size={19} /></span></div></section>
