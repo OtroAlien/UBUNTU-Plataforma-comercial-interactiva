@@ -257,7 +257,7 @@ function App() {
         <section className="community-section" id="beneficios" aria-labelledby="community-title">
           <div className="shell community-layout">
             <div className="community-copy"><span className="community-icon"><HeartHandshake size={33} strokeWidth={1.5} /></span><h2 id="community-title">Cuando a uno le va bien,<br /><em>crecemos todos.</em></h2><p>UBUNTU une el descubrimiento local con nuevas oportunidades para los emprendedores. Muy pronto, los beneficios de nuestra comunidad van a vivir acá.</p><span className="coming-soon">Beneficios y promociones · Próxima fase</span></div>
-            <div className="community-shape" aria-hidden="true"><span>U</span><span>B</span><span>U</span></div>
+            <div className="community-watermark" aria-hidden="true"><img src="/images/eagle-watermark.webp" alt="" width="1254" height="1254" /></div>
           </div>
         </section>
 

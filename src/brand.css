@@ -71,12 +71,14 @@ html, body { background: #090909; color: #f5f2eb; }
 .empty-state { border-color: #5b5039; color: #f5f2eb; }
 .empty-state p { color: #b9b4a9; }
 
-.community-section { border-block: 1px solid #5d4821; background: #11100e; color: #f5f2eb; }
+.community-section { position: relative; border-block: 1px solid #5d4821; background: #11100e; color: #f5f2eb; }
+.community-layout { position: relative; }
 .community-icon { border-color: #d2a341; color: #d2a341; }
 .community-copy h2 em { color: #e1b84f; }
 .community-copy p { color: #c0bbb0; }
 .coming-soon { border-color: #725a2b; color: #e6c36e; }
-.community-shape { color: #d2a341; }
+.community-watermark { position: absolute; top: 50%; right: 3%; z-index: 0; width: min(38vw, 470px); transform: translateY(-50%); opacity: .14; pointer-events: none; }
+.community-watermark img { width: 100%; height: auto; object-fit: contain; }
 
 .magazine-cover { border: 1px solid #9c742c; background: #050505; box-shadow: 15px 17px 0 #302719; }
 .magazine-cover > strong span { color: #d2a341; }
@@ -109,6 +111,7 @@ html, body { background: #090909; color: #f5f2eb; }
   .footer-brand img { width: 112px; height: 112px; }
   .search-form { box-shadow: 5px 5px 0 #8b6828; }
   .community-section { border-block-width: 1px; }
+  .community-watermark { right: -7%; width: 225px; opacity: .1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header, .site-header.scrolled { transition: none; }
