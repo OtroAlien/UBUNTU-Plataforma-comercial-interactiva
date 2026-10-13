@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import App from './App'
 import '@fontsource-variable/space-grotesk'
 import './index.css'
+import './brand.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

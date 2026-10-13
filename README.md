@@ -26,7 +26,8 @@ El proyecto está preparado para desplegarse como aplicación Vite en Vercel.
 - `src/components/ui/button.tsx`: botón reutilizable compatible con la convención de shadcn/ui.
 - `src/data/businesses.ts`: comercios, categorías y localidades ficticias.
 - `src/index.css`: tokens visuales, layouts, estados y responsive.
-- `public/images`: imágenes originales generadas para esta demo y optimizadas en WebP.
+- `src/brand.css`: tema negro y oro basado en el logo de UBUNTU.
+- `public/images`: sello de UBUNTU y fotografías originales de la demo, optimizadas en WebP.
 
 Stack: React 19, TypeScript, Vite, Tailwind CSS 4, shadcn/ui, Motion, Lucide React y React Router.
 
@@ -34,7 +35,7 @@ Stack: React 19, TypeScript, Vite, Tailwind CSS 4, shadcn/ui, Motion, Lucide Rea
 
 La búsqueda filtra los seis negocios de muestra por texto, categoría y localidad. Las tarjetas abren una vista previa. Las secciones de promociones, revista y captación comercial presentan el concepto e indican expresamente que su funcionalidad llegará en otra fase. No hay backend, autenticación, cobros ni enlaces de contacto ficticios.
 
-El logotipo actual es un placeholder tipográfico. Todos los comercios y datos son inventados para la demo y no representan negocios reales. Las imágenes se generaron con ImageGen y se guardaron en el propio repositorio.
+Se generó una versión limpia del sello de UBUNTU a partir de la referencia visual enviada por el cliente. Todos los comercios y datos son inventados para la demo y no representan negocios reales. Las imágenes se generaron con ImageGen y se guardaron en el propio repositorio.
 
 ## Próximas fases propuestas
 

@@ -1,0 +1,115 @@
+/* UBUNTU brand layer, based on the supplied black and gold seal. */
+:root {
+  --background: #090909;
+  --foreground: #f5f2eb;
+  --primary: #d2a341;
+  --primary-foreground: #11100d;
+  --muted: #181715;
+  --muted-foreground: #b9b4a9;
+  --border: #39352b;
+  --ring: #e6bb58;
+  color: var(--foreground);
+  background: var(--background);
+}
+html, body { background: #090909; color: #f5f2eb; }
+:focus-visible { outline-color: #e1b84f; }
+::selection { background: #d2a341; color: #090909; }
+
+.site-header { background: rgb(9 9 9 / .96); border-bottom-color: #2d2921; }
+.site-header.scrolled { box-shadow: 0 9px 26px rgb(0 0 0 / .5); }
+.brand { width: 84px; justify-content: center; }
+.brand-logo { width: 76px; height: 76px; object-fit: contain; }
+.desktop-nav a { color: #e8e4da; }
+.desktop-nav a:hover, .footer-links a:hover { color: #e3ba5b; }
+.header-search, .menu-toggle { color: #f5f2eb; }
+.header-publish { border-color: #d2a341; }
+.mobile-nav { background: #090909; border-top-color: #332d20; }
+.mobile-nav a { border-bottom-color: #302c24; color: #f5f2eb; }
+
+.hero h1, .section-heading h2, .business-heading h2, .magazine-copy h2,
+.community-copy h2, .publish-section h2, .business-card h3, .preview-content h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -.045em;
+}
+.hero h1 span:not(.hero-period)::after { background: #bd9138; opacity: .5; }
+.hero-description, .categories-heading p, .business-heading > p,
+.business-card p, .magazine-copy > p:not(.section-kicker), .publish-side p {
+  color: #c0bbb0;
+}
+.hero-period, .yellow-period { color: #d2a341; }
+.hero-photo-label { border: 1px solid #d2a341; background: #090909; color: #f5f2eb; }
+.hero-photo-label strong { color: #e1b84f; }
+.button { border-color: #d2a341; background: #d2a341; color: #12100b; }
+.button:hover { background: #e3ba5b; }
+.button--outline { border-color: #bda358; background: transparent; color: #f5f2eb; }
+.button--outline:hover { border-color: #d2a341; background: #d2a341; color: #11100d; }
+
+.search-form { border-color: #c3983c; background: #11110f; box-shadow: 7px 7px 0 #8b6828; }
+.search-field, .locality-field { color: #f5f2eb; }
+.search-field { border-right-color: #403b31; }
+.search-field input { color: #f5f2eb; }
+.search-field input::placeholder { color: #aaa59a; }
+.locality-field select { color: #f5f2eb; }
+.locality-field select option { background: #11110f; color: #f5f2eb; }
+.search-hint { color: #c0bbb0; }
+.search-hint button { color: #f5f2eb; text-decoration-color: #d2a341; }
+
+.statement-band { background: #c89b3c; color: #11100d; }
+.section-kicker, .hero-intro { color: #dfbd6c; }
+.intro-line { background: #d2a341; }
+.category-tile { border-color: #3d382e; background: #141311; color: #f5f2eb; }
+.category-tile:hover { border-color: #d2a341; background: #d2a341; color: #11100d; }
+.category-index { color: #d5b665; }
+.category-tile:hover .category-index { color: #40300d; }
+.filter-chip { border-color: #494439; color: #e8e4da; }
+.filter-chip:hover { background: #211e18; }
+.filter-chip.active { border-color: #d2a341; background: #d2a341; color: #11100d; }
+.results-summary { color: #e8e4da; }
+.results-summary button { color: #e3ba5b; }
+.business-meta { color: #bdb8ac; }
+.demo-disclaimer { color: #999489; }
+.empty-state { border-color: #5b5039; color: #f5f2eb; }
+.empty-state p { color: #b9b4a9; }
+
+.community-section { border-block: 1px solid #5d4821; background: #11100e; color: #f5f2eb; }
+.community-icon { border-color: #d2a341; color: #d2a341; }
+.community-copy h2 em { color: #e1b84f; }
+.community-copy p { color: #c0bbb0; }
+.coming-soon { border-color: #725a2b; color: #e6c36e; }
+.community-shape { color: #d2a341; }
+
+.magazine-cover { border: 1px solid #9c742c; background: #050505; box-shadow: 15px 17px 0 #302719; }
+.magazine-cover > strong span { color: #d2a341; }
+.cover-circle { background: #c89b3c; color: #11100d; }
+.magazine-copy .section-kicker { color: #d4ad55; }
+
+.publish-section { border: 1px solid #3f3829; background: #141311; }
+.publish-section em { color: #e1b84f; text-decoration-color: #a57d30; }
+.publish-side span { border-color: #d2a341; color: #e4bd63; }
+.footer { background: #050505; color: #f5f2eb; }
+.footer-brand { display: inline-block; }
+.footer-brand img { width: 124px; height: 124px; object-fit: contain; }
+.footer-inner > div:first-child p { color: #bdb8ac; }
+.footer-credit { border-top-color: #37332a; color: #a9a397; }
+.footer-links a { color: #e5e0d5; }
+
+.preview-backdrop { background: rgb(0 0 0 / .82); }
+.preview-panel { border: 1px solid #6f5729; background: #11100e; color: #f5f2eb; }
+.preview-close { border: 1px solid #d2a341; background: #d2a341; color: #11100d; }
+.preview-kicker { color: #dfbd6c; }
+.preview-content .business-meta { color: #c0bbb0; }
+.preview-content .preview-note { border-top-color: #403a2e; color: #b9b4a9; }
+
+@media (max-width: 900px) {
+  .brand { width: auto; justify-content: flex-start; }
+  .brand-logo { width: 63px; height: 63px; }
+}
+@media (max-width: 640px) {
+  .brand-logo { width: 55px; height: 55px; }
+  .footer-brand img { width: 112px; height: 112px; }
+  .search-form { box-shadow: 5px 5px 0 #8b6828; }
+  .community-section { border-block-width: 1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .site-header.scrolled { transition: none; }
+}

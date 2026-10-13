@@ -57,8 +57,7 @@ function Header() {
     <header className={scrolled ? 'site-header scrolled' : 'site-header'}>
       <div className="header-inner shell">
         <a className="brand" href="#inicio" aria-label="UBUNTU, ir al inicio" onClick={() => setMenuOpen(false)}>
-          <span className="brand-symbol" aria-hidden="true">u<span>.</span></span>
-          <span className="brand-name">UBUNTU<span className="brand-dot">.</span></span>
+          <img className="brand-logo" src="/images/ubuntu-seal.webp" alt="UBUNTU Sublimación" width="88" height="88" />
         </a>
 
         <nav className="desktop-nav" aria-label="Navegación principal">
@@ -269,7 +268,7 @@ function App() {
 
         <section className="publish-section shell" id="publica" aria-labelledby="publish-title"><div><p>PARA QUIENES EMPRENDEN</p><h2 id="publish-title">Tu próximo cliente<br />puede estar a unas<br /><em>cuadras de distancia.</em></h2></div><div className="publish-side"><p>Estamos construyendo un espacio para que más personas descubran lo que hacés. La propuesta comercial y el formulario de consultas llegarán en una próxima fase.</p><span>Publicá tu negocio · Próxima fase <ArrowUpRight size={19} /></span></div></section>
       </main>
-      <footer className="footer"><div className="shell footer-inner"><div><a className="footer-brand" href="#inicio">UBUNTU<span>.</span></a><p>Lo bueno está cerca.</p></div><div className="footer-links"><a href="#negocios">Explorar</a><a href="#categorias">Categorías</a><a href="#revista">Revista</a><a href="#publica">Para comercios</a></div><p className="footer-credit">Demo conceptual por Sodium Software · Contenido ficticio</p></div></footer>
+      <footer className="footer"><div className="shell footer-inner"><div><a className="footer-brand" href="#inicio" aria-label="UBUNTU Sublimación, ir al inicio"><img src="/images/ubuntu-seal.webp" alt="UBUNTU Sublimación" width="132" height="132" /></a><p>Lo bueno está cerca.</p></div><div className="footer-links"><a href="#negocios">Explorar</a><a href="#categorias">Categorías</a><a href="#revista">Revista</a><a href="#publica">Para comercios</a></div><p className="footer-credit">Demo conceptual por Sodium Software · Contenido ficticio</p></div></footer>
       {selectedBusiness && <BusinessPreview business={selectedBusiness} onClose={() => setSelectedBusiness(null)} />}
     </>
   )
